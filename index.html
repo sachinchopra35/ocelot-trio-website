@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocelot Trio - Modern Jazz</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>Ocelot Trio</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#music">Music</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2 class="hero-title">Experience Modern Jazz</h2>
+                <p class="hero-subtitle">The Ocelot Trio is a brand-new modern jazz trio, and we're here to create a unique blend of jazz, neo-soul, and hip-hop, to give you the most satisfying and unique musical experience.</p>
+                <button class="cta-button" onclick="scrollToSection('music')">
+                    <i class="fas fa-play"></i> Listen Now
+                </button>
+            </div>
+            <div class="hero-background">
+                <div class="floating-notes">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-fire"></i>
+                    <i class="fas fa-bolt"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-gem"></i>
+                    <i class="fas fa-wind"></i>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">About Ocelot Trio</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>The Ocelot Trio brings together three passionate musicians united by their love for modern jazz. Our sound blends traditional jazz foundations with contemporary influences, creating a unique musical experience that captivates audiences.</p>
+                        <p>Our Trio was born in London in 2024, and has since been coming up with original tunes that reflect the distinct styles of each member. We hope our unique sound will makes waves in the UK Jazz scene and beyond.</p>
+                    </div>
+                        <div class="band-members">
+                        <div class="member">
+                            <div class="member-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <h3>Sachin - Piano</h3>
+                            <p>Combining innovative techniques to combine the best of jazz, funk, neo-soul, hip-hop, and even classical</p>
+                        </div>
+                        <div class="member">
+                            <div class="member-icon">
+                                <i class="fas fa-guitar"></i>
+                            </div>
+                            <h3>Dylan - Bass</h3>
+                            <p>An expert at driving the rhythms of complex songs, while singing out deep melodies that intertwine with the piano and drums</p>
+                        </div>
+                        <div class="member">
+                            <div class="member-icon">
+                                <i class="fas fa-drum"></i>
+                            </div>
+                            <h3>Max - Drums</h3>
+                            <p>An unbelievably versatile drummer, able to seamlessly fuse Jazz and Neo-Soul with heavier styles like Drum and Bass and Hip-Hop</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="music" class="music">
+            <div class="container">
+                <h2 class="section-title">Our Music</h2>
+                <div class="music-grid">
+                    <div class="music-card">
+                        <div class="music-artwork">
+                            <div class="album-placeholder">
+                                <i class="fas fa-music"></i>
+                            </div>
+                        </div>
+                        <div class="music-info">
+                            <h3>If You Want To View Paradise</h3>
+                            <p>Deep harmonies and a catchy melody, alternating between Latin jazz grooves and modern Drum and Bass</p>
+                            <div class="audio-player">
+                                <button class="play-btn" data-track="1">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="progress-bar">
+                                    <div class="progress"></div>
+                                </div>
+                                <span class="duration">3:45</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="music-card">
+                        <div class="music-artwork">
+                            <div class="album-placeholder">
+                                <i class="fas fa-music"></i>
+                            </div>
+                        </div>
+                        <div class="music-info">
+                            <h3>In Bloom</h3>
+                            <p>A pop-inspired track, with funky rhythms and an iconic and uplifting chorus</p>
+                            <div class="audio-player">
+                                <button class="play-btn" data-track="2">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="progress-bar">
+                                    <div class="progress"></div>
+                                </div>
+                                <span class="duration">4:12</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="music-card">
+                        <div class="music-artwork">
+                            <div class="album-placeholder">
+                                <i class="fas fa-music"></i>
+                            </div>
+                        </div>
+                        <div class="music-info">
+                            <h3>Hades' Gift</h3>
+                            <p>The most experimental track, alternating between light and darkness, with deep chords originating from Spanish and Russian classical music</p>
+                            <div class="audio-player">
+                                <button class="play-btn" data-track="3">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <div class="progress-bar">
+                                    <div class="progress"></div>
+                                </div>
+                                <span class="duration">5:23</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title">Get in Touch</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Book the Ocelot Trio</h3>
+                        <p>Available for private events, jazz clubs, and special occasions</p>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>booking@ocelottrio.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+1 (555) 123-JAZZ</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Available nationwide</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <h3>Follow Us</h3>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-spotify"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Ocelot Trio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
