@@ -1,6 +1,5 @@
 // Global variables
 let currentlyPlaying = null;
-let progressIntervals = {};
 
 // DOM Content Loaded Event
 document.addEventListener('DOMContentLoaded', function() {
@@ -55,9 +54,54 @@ function initializeAudioPlayers() {
         bar.addEventListener('click', function(e) {
             const rect = bar.getBoundingClientRect();
             const percent = (e.clientX - rect.left) / rect.width;
-            const progress = bar.querySelector('.progress');
-            progress.style.width = percent * 100 + '%';
+            const trackId = this.closest('.music-card').querySelector('.play-btn').getAttribute('data-track');
+            const audio = document.getElementById(`audio-track-${trackId}`);
+            
+            if (audio && audio.duration) {
+                audio.currentTime = percent * audio.duration;
+            }
         });
+    });
+
+    // Initialize audio event listeners for each track
+    for (let i = 1; i <= 3; i++) {
+        const audio = document.getElementById(`audio-track-${i}`);
+        if (audio) {
+            setupAudioEventListeners(audio, i);
+        }
+    }
+}
+
+function setupAudioEventListeners(audio, trackId) {
+    const button = document.querySelector(`[data-track="${trackId}"]`);
+    const progressBar = button.parentElement.querySelector('.progress');
+    const durationSpan = button.parentElement.querySelector('.duration');
+    
+    // Update progress bar during playback
+    audio.addEventListener('timeupdate', function() {
+        if (audio.duration) {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = percent + '%';
+        }
+    });
+
+    // Update duration display when metadata is loaded
+    audio.addEventListener('loadedmetadata', function() {
+        const minutes = Math.floor(audio.duration / 60);
+        const seconds = Math.floor(audio.duration % 60);
+        durationSpan.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    });
+
+    // Handle audio ending
+    audio.addEventListener('ended', function() {
+        pauseTrack(trackId.toString(), button);
+        progressBar.style.width = '0%';
+    });
+
+    // Handle audio errors
+    audio.addEventListener('error', function() {
+        showNotification('Error loading audio file', 'error');
+        pauseTrack(trackId.toString(), button);
     });
 }
 
@@ -85,6 +129,12 @@ function playTrack(trackId, button) {
     const icon = button.querySelector('i');
     const progressBar = button.parentElement.querySelector('.progress');
     const card = button.closest('.music-card');
+    const audio = document.getElementById(`audio-track-${trackId}`);
+
+    if (!audio) {
+        showNotification('Audio file not found', 'error');
+        return;
+    }
 
     // Update UI
     icon.classList.remove('fa-play');
@@ -95,8 +145,12 @@ function playTrack(trackId, button) {
     // Set as currently playing
     currentlyPlaying = trackId;
 
-    // Start progress animation
-    startProgressAnimation(trackId, progressBar);
+    // Play the audio
+    audio.play().catch(function(error) {
+        console.error('Error playing audio:', error);
+        showNotification('Error playing audio', 'error');
+        pauseTrack(trackId, button);
+    });
 
     // Show notification
     showNotification(`Playing: ${card.querySelector('h3').textContent}`, 'info');
@@ -106,6 +160,7 @@ function pauseTrack(trackId, button) {
     const icon = button.querySelector('i');
     const progressBar = button.parentElement.querySelector('.progress');
     const card = button.closest('.music-card');
+    const audio = document.getElementById(`audio-track-${trackId}`);
 
     // Update UI
     icon.classList.remove('fa-pause');
@@ -113,8 +168,10 @@ function pauseTrack(trackId, button) {
     button.classList.remove('playing');
     card.classList.remove('playing');
 
-    // Stop progress animation
-    stopProgressAnimation(trackId);
+    // Pause the audio
+    if (audio) {
+        audio.pause();
+    }
 
     // Clear currently playing
     if (currentlyPlaying === trackId) {
@@ -125,31 +182,7 @@ function pauseTrack(trackId, button) {
     showNotification(`Paused: ${card.querySelector('h3').textContent}`, 'info');
 }
 
-function startProgressAnimation(trackId, progressBar) {
-    let progress = 0;
-    const duration = 30; // 30 seconds for demo
-    const interval = 100; // Update every 100ms
-    const increment = 100 / (duration * (1000 / interval));
-
-    progressIntervals[trackId] = setInterval(() => {
-        progress += increment;
-        progressBar.style.width = progress + '%';
-
-        if (progress >= 100) {
-            // Track finished
-            const button = document.querySelector(`[data-track="${trackId}"]`);
-            pauseTrack(trackId, button);
-            progressBar.style.width = '0%';
-        }
-    }, interval);
-}
-
-function stopProgressAnimation(trackId) {
-    if (progressIntervals[trackId]) {
-        clearInterval(progressIntervals[trackId]);
-        delete progressIntervals[trackId];
-    }
-}
+// These functions are no longer needed as we're using real audio
 
 // Scroll Effects
 function initializeScrollEffects() {

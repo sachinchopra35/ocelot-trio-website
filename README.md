@@ -19,7 +19,12 @@ cursor_website/
 ├── index.html          # Main HTML structure
 ├── style.css           # CSS styling and animations
 ├── script.js           # JavaScript functionality
-└── README.md           # This file
+├── audio/              # Audio files directory
+│   ├── paradise.m4a    # "If You Want To View Paradise"
+│   ├── in_bloom.m4a    # "In Bloom"
+│   └── hades_gift.m4a  # "Hades' Gift"
+├── README.md           # This file
+└── deploy-guide.md     # Deployment instructions
 ```
 
 ## How to Access the Website
@@ -129,11 +134,12 @@ The website is compatible with all modern browsers:
 ## Interactive Features
 
 ### Audio Player
-- Click the play button (▶️) on any music card to simulate playback
-- The button changes to pause (⏸️) when "playing"
-- Progress bar shows simulated playback progress
-- Only one track can "play" at a time
+- Click the play button (▶️) on any music card to play real audio
+- The button changes to pause (⏸️) when playing
+- Progress bar shows actual playback progress
+- Only one track can play at a time
 - Click anywhere on the progress bar to jump to that position
+- Real audio files: "If You Want To View Paradise", "In Bloom", and "Hades' Gift"
 
 ### Navigation
 - Click navigation links to smoothly scroll to sections
@@ -224,8 +230,10 @@ The website is compatible with all modern browsers:
 - Check browser console for any errors
 
 ### Audio Player Issues
-- The current implementation is a placeholder/simulation
-- For real audio functionality, you'll need to add actual MP3 files and update the JavaScript
+- If audio doesn't play, check browser console for errors
+- Some browsers require user interaction before playing audio
+- M4A files are supported in most modern browsers
+- If you encounter issues, try refreshing the page
 
 ## Support
 
