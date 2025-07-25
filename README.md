@@ -153,7 +153,7 @@ The website is compatible with all modern browsers:
 - **Escape**: Close mobile menu and pause audio
 
 ### Quick Note Feature
-- Send messages directly from the website
+- Send messages directly from the website with optional name field
 - Uses EmailJS for direct email delivery (when configured)
 - Fallback options: clipboard copy + mailto link
 - Character limit with visual feedback

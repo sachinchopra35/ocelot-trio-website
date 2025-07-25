@@ -240,10 +240,11 @@ function initializeContactForm() {
 
 // Quick Note functionality
 function initializeQuickNote() {
+    const nameInput = document.getElementById('sender-name');
     const messageInput = document.getElementById('quick-message');
     const sendButton = document.getElementById('send-note-btn');
     
-    if (!messageInput || !sendButton) return;
+    if (!nameInput || !messageInput || !sendButton) return;
 
     // Initialize EmailJS (you'll need to replace these with your actual values)
     const EMAILJS_CONFIG = {
@@ -258,6 +259,7 @@ function initializeQuickNote() {
     }
 
     async function sendQuickNote() {
+        const senderName = nameInput.value.trim() || 'Anonymous';
         const message = messageInput.value.trim();
         
         if (message === '') {
@@ -276,7 +278,7 @@ function initializeQuickNote() {
                 EMAILJS_CONFIG.SERVICE_ID !== 'service_placeholder') {
                 
                 const templateParams = {
-                    from_name: 'Website Visitor',
+                    from_name: senderName,
                     message: message,
                     to_email: 'sachchopra@gmail.com',
                     reply_to: 'noreply@ocelottrio.com'
@@ -289,15 +291,16 @@ function initializeQuickNote() {
                 );
 
                 showNotification('Message sent successfully! Thank you!', 'success');
+                nameInput.value = '';
                 messageInput.value = '';
             } else {
                 // Fallback: Copy to clipboard and provide instructions
-                await copyMessageToClipboard(message);
+                await copyMessageToClipboard(senderName, message);
             }
         } catch (error) {
             console.error('EmailJS Error:', error);
             // Fallback to clipboard copy
-            await copyMessageToClipboard(message);
+            await copyMessageToClipboard(senderName, message);
         }
 
         // Re-enable button
@@ -305,12 +308,13 @@ function initializeQuickNote() {
         sendButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send to the Ocelots';
     }
 
-    async function copyMessageToClipboard(message) {
-        const fullMessage = `Hi Ocelot Trio,\n\n${message}\n\nSent from your website's quick note form.`;
+    async function copyMessageToClipboard(senderName, message) {
+        const fullMessage = `Hi Ocelot Trio,\n\nFrom: ${senderName}\n\n${message}\n\nSent from your website's quick note form.`;
         
         try {
             await navigator.clipboard.writeText(fullMessage);
             showNotification('Message copied to clipboard! Please paste it in an email to sachchopra@gmail.com', 'info');
+            nameInput.value = '';
             messageInput.value = '';
             
             // Also try mailto as backup
@@ -338,7 +342,12 @@ function initializeQuickNote() {
         }
     });
 
-    // Character counter (optional visual feedback)
+    // Visual feedback for name input
+    nameInput.addEventListener('input', function() {
+        this.style.borderColor = this.value.length > 0 ? 'var(--accent-color)' : 'var(--border-color)';
+    });
+
+    // Character counter and visual feedback for message
     messageInput.addEventListener('input', function() {
         const remaining = 500 - this.value.length;
         if (remaining < 50) {

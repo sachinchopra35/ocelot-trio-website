@@ -26,12 +26,11 @@ To enable direct email sending from your website (without relying on the user's 
 Subject: Quick Note from Ocelot Trio Website
 
 From: {{from_name}}
-
-Message:
-{{message}}
+Message: {{message}}
 
 ---
 This message was sent from the Ocelot Trio website quick note form.
+To reply: {{reply_to}}
 ```
 
 4. **Note the Template ID** (you'll need this later)

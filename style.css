@@ -491,6 +491,7 @@ body {
     align-items: center;
 }
 
+#sender-name,
 #quick-message {
     width: 100%;
     padding: 1rem 1.5rem;
@@ -501,17 +502,26 @@ body {
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     line-height: 1.5;
-    resize: vertical;
-    min-height: 80px;
     transition: all 0.3s ease;
 }
 
+#sender-name {
+    height: 55px;
+}
+
+#quick-message {
+    resize: vertical;
+    min-height: 80px;
+}
+
+#sender-name:focus,
 #quick-message:focus {
     outline: none;
     border-color: var(--accent-color);
     box-shadow: 0 0 0 2px rgba(201, 169, 110, 0.2);
 }
 
+#sender-name::placeholder,
 #quick-message::placeholder {
     color: #888;
     font-style: italic;
