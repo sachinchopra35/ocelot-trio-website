@@ -465,6 +465,92 @@ body {
     min-width: 40px;
 }
 
+/* Quick Note Section */
+.quick-note {
+    padding: 4rem 0;
+    background: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.quick-note-content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.quick-note-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #ccc;
+}
+
+.note-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+#quick-message {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--secondary-color);
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 80px;
+    transition: all 0.3s ease;
+}
+
+#quick-message:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(201, 169, 110, 0.2);
+}
+
+#quick-message::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+.send-note-btn {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.send-note-btn:hover {
+    background: #d4b373;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-heavy);
+}
+
+.send-note-btn:active {
+    transform: translateY(0);
+}
+
+.send-note-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
 /* Contact Section */
 .contact {
     padding: 5rem 0;
@@ -650,6 +736,15 @@ body {
         width: 50px;
         height: 50px;
         font-size: 1.2rem;
+    }
+
+    .quick-note-content p {
+        font-size: 1rem;
+    }
+
+    .send-note-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
     }
 }
 

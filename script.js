@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeAudioPlayers();
     initializeScrollEffects();
     initializeContactForm();
+    initializeQuickNote();
 });
 
 // Navigation Functions
@@ -234,6 +235,65 @@ function initializeContactForm() {
                 window.location.href = `tel:${text}`;
             }
         });
+    });
+}
+
+// Quick Note functionality
+function initializeQuickNote() {
+    const messageInput = document.getElementById('quick-message');
+    const sendButton = document.getElementById('send-note-btn');
+    
+    if (!messageInput || !sendButton) return;
+
+    function sendQuickNote() {
+        const message = messageInput.value.trim();
+        
+        if (message === '') {
+            showNotification('Please write a message first!', 'error');
+            messageInput.focus();
+            return;
+        }
+
+        // Create email content
+        const subject = 'Quick Note from Ocelot Trio Website';
+        const body = `Hi Ocelot Trio,\n\n${message}\n\nSent from your website's quick note form.`;
+        const emailUrl = `mailto:sachchopra@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        
+        // Disable button temporarily
+        sendButton.disabled = true;
+        sendButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        
+        // Open email client
+        window.location.href = emailUrl;
+        
+        // Show success notification
+        setTimeout(() => {
+            showNotification('Email client opened! Thank you for your message!', 'success');
+            messageInput.value = '';
+            sendButton.disabled = false;
+            sendButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send to the Ocelots';
+        }, 1000);
+    }
+
+    // Button click handler
+    sendButton.addEventListener('click', sendQuickNote);
+
+    // Enter key handler
+    messageInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendQuickNote();
+        }
+    });
+
+    // Character counter (optional visual feedback)
+    messageInput.addEventListener('input', function() {
+        const remaining = 500 - this.value.length;
+        if (remaining < 50) {
+            this.style.borderColor = remaining < 10 ? '#f44336' : '#ff9800';
+        } else {
+            this.style.borderColor = this.value.length > 0 ? 'var(--accent-color)' : 'var(--border-color)';
+        }
     });
 }
 
