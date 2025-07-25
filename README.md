@@ -9,6 +9,7 @@ A modern, responsive website for the Ocelot Trio jazz band featuring elegant des
 - **Modern Jazz Aesthetic**: Sophisticated dark theme with gold accents
 - **Smooth Animations**: Floating elements, scroll effects, and hover animations
 - **Mobile Navigation**: Hamburger menu for mobile devices
+- **Quick Note Feature**: Direct messaging system with EmailJS integration
 - **Contact Integration**: Clickable email and phone links
 - **Social Media Ready**: Placeholder links for Spotify, Instagram, Facebook, and YouTube
 
@@ -24,7 +25,8 @@ cursor_website/
 │   ├── in_bloom.m4a    # "In Bloom"
 │   └── hades_gift.m4a  # "Hades' Gift"
 ├── README.md           # This file
-└── deploy-guide.md     # Deployment instructions
+├── deploy-guide.md     # Deployment instructions
+└── emailjs-setup.md    # EmailJS configuration guide
 ```
 
 ## How to Access the Website
@@ -150,6 +152,13 @@ The website is compatible with all modern browsers:
 - **Space bar**: Play/pause current or first track
 - **Escape**: Close mobile menu and pause audio
 
+### Quick Note Feature
+- Send messages directly from the website
+- Uses EmailJS for direct email delivery (when configured)
+- Fallback options: clipboard copy + mailto link
+- Character limit with visual feedback
+- Enter key or button click to send
+
 ### Contact Information
 - Click email address to open mail client
 - Click phone number to initiate call (on mobile)
@@ -246,11 +255,12 @@ If you encounter any issues:
 
 ## Next Steps
 
-1. **Add your actual music files** to replace the placeholders
-2. **Update contact information** with your real details
-3. **Add social media links** to your actual accounts
-4. **Customize colors and styling** to match your preferences
-5. **Add more pages** if needed (tour dates, merchandise, etc.)
+1. **Set up EmailJS** for direct email functionality (see `emailjs-setup.md`)
+2. **Add your actual music files** to replace the placeholders
+3. **Update contact information** with your real details
+4. **Add social media links** to your actual accounts
+5. **Customize colors and styling** to match your preferences
+6. **Add more pages** if needed (tour dates, merchandise, etc.)
 
 ---
 

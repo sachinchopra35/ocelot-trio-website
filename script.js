@@ -245,7 +245,19 @@ function initializeQuickNote() {
     
     if (!messageInput || !sendButton) return;
 
-    function sendQuickNote() {
+    // Initialize EmailJS (you'll need to replace these with your actual values)
+    const EMAILJS_CONFIG = {
+        SERVICE_ID: 'service_cmjfig9', // Replace with your EmailJS service ID
+        TEMPLATE_ID: 'template_v1aq3l5', // Replace with your EmailJS template ID
+        PUBLIC_KEY: 'EmyoBXnqLlHsNdiom' // Replace with your EmailJS public key
+    };
+
+    // Initialize EmailJS
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+    }
+
+    async function sendQuickNote() {
         const message = messageInput.value.trim();
         
         if (message === '') {
@@ -254,25 +266,65 @@ function initializeQuickNote() {
             return;
         }
 
-        // Create email content
-        const subject = 'Quick Note from Ocelot Trio Website';
-        const body = `Hi Ocelot Trio,\n\n${message}\n\nSent from your website's quick note form.`;
-        const emailUrl = `mailto:sachchopra@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        
-        // Disable button temporarily
+        // Disable button and show loading
         sendButton.disabled = true;
         sendButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+        try {
+            // Try EmailJS first (if properly configured)
+            if (typeof emailjs !== 'undefined' && 
+                EMAILJS_CONFIG.SERVICE_ID !== 'service_placeholder') {
+                
+                const templateParams = {
+                    from_name: 'Website Visitor',
+                    message: message,
+                    to_email: 'sachchopra@gmail.com',
+                    reply_to: 'noreply@ocelottrio.com'
+                };
+
+                await emailjs.send(
+                    EMAILJS_CONFIG.SERVICE_ID,
+                    EMAILJS_CONFIG.TEMPLATE_ID,
+                    templateParams
+                );
+
+                showNotification('Message sent successfully! Thank you!', 'success');
+                messageInput.value = '';
+            } else {
+                // Fallback: Copy to clipboard and provide instructions
+                await copyMessageToClipboard(message);
+            }
+        } catch (error) {
+            console.error('EmailJS Error:', error);
+            // Fallback to clipboard copy
+            await copyMessageToClipboard(message);
+        }
+
+        // Re-enable button
+        sendButton.disabled = false;
+        sendButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send to the Ocelots';
+    }
+
+    async function copyMessageToClipboard(message) {
+        const fullMessage = `Hi Ocelot Trio,\n\n${message}\n\nSent from your website's quick note form.`;
         
-        // Open email client
-        window.location.href = emailUrl;
-        
-        // Show success notification
-        setTimeout(() => {
-            showNotification('Email client opened! Thank you for your message!', 'success');
+        try {
+            await navigator.clipboard.writeText(fullMessage);
+            showNotification('Message copied to clipboard! Please paste it in an email to sachchopra@gmail.com', 'info');
             messageInput.value = '';
-            sendButton.disabled = false;
-            sendButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send to the Ocelots';
-        }, 1000);
+            
+            // Also try mailto as backup
+            setTimeout(() => {
+                const subject = 'Quick Note from Ocelot Trio Website';
+                const emailUrl = `mailto:sachchopra@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(fullMessage)}`;
+                window.location.href = emailUrl;
+            }, 1000);
+            
+        } catch (clipboardError) {
+            // If clipboard also fails, show the message in an alert
+            alert(`Please copy this message and email it to sachchopra@gmail.com:\n\n${fullMessage}`);
+            showNotification('Please copy the message from the popup and email it manually', 'info');
+        }
     }
 
     // Button click handler
